@@ -8,6 +8,7 @@
 // 自动添加浏览器前缀插件：npm install --save-dev postcss-loader autoprefixer
 // 根据html模版文件，自动生成一个新的html，其中自动引用打包后的js文件：npm install --save-dev html-webpack-plugin
 // react模块代码热加载：npm install --save-dev babel-plugin-react-transform react-transform-hmr
+// 打包时分离css、js：npm install --save-dev extract-text-webpack-plugin
 
 // webpack.config.js
 
