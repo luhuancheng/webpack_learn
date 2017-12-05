@@ -17,7 +17,8 @@
 const webpack = require('webpack');
 // 导入html-webpack-plugin，以便使用html-webpack-plugin
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+// 导入extract-text-webpack-plugin，以便使用extract-text-webpack-plugin分离css文件
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     devtool: 'eval-source-map',
