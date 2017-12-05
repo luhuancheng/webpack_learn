@@ -80,6 +80,9 @@ module.exports = {
             template: __dirname + "/app/index.tmpl.html"
         }),
         //热加载插件
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin(),
+        new ExtractTextPlugin("style.css")
     ]
 }
