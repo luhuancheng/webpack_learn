@@ -3,9 +3,18 @@
         "env",
         "react"
     ],
+    
     "env": {
         "development": {
             "plugins": [
+                [
+                    "import",
+                    {
+                        "libraryName": "antd",
+                        "style": "css",
+                        "libraryDirectory": "es"
+                    }
+                ],
                 [
                     "react-transform",
                     {

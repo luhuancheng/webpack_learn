@@ -19,6 +19,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 导入extract-text-webpack-plugin，以便使用extract-text-webpack-plugin分离css文件
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -27,7 +29,7 @@ module.exports = {
     entry: __dirname + "/app/main.js",
     output: {
         path: __dirname + "/build/",
-        filename: "bundle.js"
+        filename: "bundle-[hash].js"
     },
 
     devServer: {
@@ -49,26 +51,24 @@ module.exports = {
                 },
                 exclude: /node_modules/
             },
-
+            
             {
-                // style-loader、css-loader解析css代码。默认情况下，css和js会打包到同一个文件中
                 test: /\.css$/,
-                use: [
-                    {
-                        loader: "style-loader"
-                    },
-                    {
-                        loader: "css-loader",
-                        // 避免不同模块下，相同的css类名造成冲突
-                        options: {
-                            module: true
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [
+                        {
+                            loader: "css-loader",
+                            // antd不支持css module
+                            // options: {
+                            //     modules: true
+                            // }
+                        },
+                        {
+                            loader: "postcss-loader"
                         }
-                    },
-                    {
-                        // 自动添加浏览器前缀
-                        loader: "postcss-loader",
-                    }
-                ]
+                    ]
+                })
             }
         ]
     },
@@ -84,6 +84,11 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin(),
-        new ExtractTextPlugin("style.css")
+        new ExtractTextPlugin("style.css"),
+        new CleanWebpackPlugin(['build'], {
+            root: __dirname,
+            verbose: true,
+            dry: false,
+        }),
     ]
 }
